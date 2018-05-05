@@ -29,3 +29,18 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('io.projectreactor:reactor-test')
 }
+
+
+gradle.taskGraph.whenReady {taskGraph ->
+	def t = tasks.getByName("processResources")
+	t.doLast {
+		def stdout = new ByteArrayOutputStream()
+		exec {
+			commandLine "git", "log", "-n", "1"
+			standardOutput = stdout;
+		}
+		def gitlog = stdout.toString().trim()
+		def f = file(t.getDestinationDir().toString()+"/banner.txt")
+		new PrintWriter(new FileWriter(f, true)).append(gitlog).flush()
+	}
+}

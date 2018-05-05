@@ -2,6 +2,7 @@ package com.example.demo;
 
 import org.junit.Test;
 
+import java.io.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -9,7 +10,7 @@ import java.util.concurrent.Executors;
 public class FutureTest {
 
     @Test
-    public void test() throws InterruptedException {
+    public void test() throws InterruptedException, IOException {
 
 
         CompletableFuture completableFuture = new CompletableFuture();
@@ -43,6 +44,8 @@ public class FutureTest {
 
         System.out.println("over");
 
+
+        new PrintWriter(new FileWriter(new File(""), true)).append("12321").flush();
 
     }
 
